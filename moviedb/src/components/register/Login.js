@@ -5,25 +5,28 @@ import axios from "axios";
 export default function Login() {
     const [email, setEmail] = React.useState("");
     const [pass, setPass] = React.useState("");
-    const [user,setPerson] = React.useState([]);
+    const [userName, setUserName] = React.useState("");
+    const [error,setError] = React.useState("");
     
-    const submitForm = () => {
-        console.log(email);
-        console.log(pass);
+    const submitForm = e => {
+        e.preventDefault()
+
         axios.get("http://localhost:3001/user/login", {
             params: {
                 "email":email,
                 "pass":pass
             }
         })
-        .then((response)=>{
-            console.log(response);
-            // this.setPerson({user: response.data});
+        .then((response) => {
+            console.log(response.data[0].full_name);
+            setUserName(response.data[0].full_name);
+            console.log(userName);
         }, (error) => {
+            if (error.response) {
+                // console.log("No data found");
+            }
             console.log(error);
         });
-        
-        console.log(axios);
     };
     return (
         <MDBContainer
@@ -31,6 +34,7 @@ export default function Login() {
             style={{ height: '100%', width: '100%'}}
         >
             <MDBRow>
+                {/* {this.userName} */}
                 <MDBCol md='6'>
                 <MDBCard style={{ width: "22rem" }}>
                 <h5 className="card-header elegant-color white-text text-center py-4">
