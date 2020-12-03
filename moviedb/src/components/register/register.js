@@ -3,13 +3,17 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbr
 import axios from "axios";
 
 export default function Register() {
+    const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [pass, setPass] = React.useState("");
+    const [address, setAddress] = React.useState("");
     
     const submitForm = () => {
         axios.post("http://localhost:3001/user/signup",{ 
+            name:name,
             email:email,
-            password:pass
+            password:pass,
+            address:address
         })
         .then((response)=>{
             console.log(response);
@@ -34,30 +38,25 @@ export default function Register() {
                         <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                         Your name
                         </label>
-                        <input type="text" id="defaultFormRegisterNameEx" className="form-control" />
+                        <input type="text" onChange={(e)=> {setName(e.target.value);}} i id="defaultFormRegisterNameEx" className="form-control" required/>
                         <br />
                         <label htmlFor="defaultFormAccountAddress" className="grey-text">
                         Address
                         </label>
-                        <input type="text" id="defaultFormAccountAddress" className="form-control" />
+                        <input type="text" onChange={(e)=> {setAddress(e.target.value);}} i id="defaultFormAccountAddress" className="form-control" required/>
                         <br/>
                         <hr/>
                         <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
                         Your email
                         </label>
-                        <input type="email" id="defaultFormRegisterEmailEx" className="form-control" />
-                        <br />
-                        <label htmlFor="defaultFormRegisterConfirmEx" className="grey-text">
-                        Confirm your email
-                        </label>
-                        <input type="email" id="defaultFormRegisterConfirmEx" className="form-control" />
+                        <input type="email" onChange={(e)=> {setEmail(e.target.value);}} id="defaultFormRegisterEmailEx" className="form-control" required />
                         <br />
                         <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">
                         Your password
                         </label>
-                        <input type="password" id="defaultFormRegisterPasswordEx" className="form-control" />
+                        <input type="text" onChange={(e)=> {setPass(e.target.value);}} i id="defaultFormRegisterPasswordEx" className="form-control" required/>
                         <div className="text-center mt-4">
-                        <MDBBtn color="dark" type="submit">
+                        <MDBBtn  onClick={submitForm} color="dark" type="submit">
                             Register
                         </MDBBtn>
                         </div>

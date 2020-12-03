@@ -5,19 +5,26 @@ import axios from "axios";
 export default function Login() {
     const [email, setEmail] = React.useState("");
     const [pass, setPass] = React.useState("");
+    const [user,setPerson] = React.useState([]);
     
     const submitForm = () => {
-        axios.post("http://localhost:3001/user/login",{ 
-            email:email,
-            password:pass
+        console.log(email);
+        console.log(pass);
+        axios.get("http://localhost:3001/user/login", {
+            params: {
+                "email":email,
+                "pass":pass
+            }
         })
         .then((response)=>{
             console.log(response);
+            // this.setPerson({user: response.data});
         }, (error) => {
             console.log(error);
         });
+        
+        console.log(axios);
     };
-
     return (
         <MDBContainer
             className='d-flex justify-content-center my-3 my-md-5'
@@ -34,14 +41,14 @@ export default function Login() {
                         <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
                         Your email
                         </label>
-                        <input type="email" id="defaultFormLoginEmailEx" className="form-control" />
+                        <input type="email" onChange={(e)=> {setEmail(e.target.value);}} id="defaultFormLoginEmailEx" className="form-control" />
                         <br />
                         <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
                         Your password
                         </label>
-                        <input type="password" id="defaultFormLoginPasswordEx" className="form-control" />
+                        <input type="password" onChange={(e)=> {setPass(e.target.value);}} id="defaultFormLoginPasswordEx" className="form-control" />
                         <div className="text-center mt-4">
-                        <MDBBtn color="dark" type="submit">Login</MDBBtn>
+                        <MDBBtn onClick={submitForm} color="dark" type="submit">Login</MDBBtn>
                         </div>
                     </form>
                     </MDBCardBody>
