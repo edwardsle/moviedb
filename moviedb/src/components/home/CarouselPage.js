@@ -17,48 +17,39 @@ const CarouselPage = () => {
           <MDBView>
             <img
               className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
+              src="/img/firstslide.jpg"
               alt="First slide"
             />
           </MDBView>
-          <MDBCarouselCaption>
-            <MDBView>
-              <MDBMask overlay="black-light" />
-              <h3 className="h3-responsive white-text">Light mask</h3>
-              <p className="white-text">First text</p>
-            </MDBView>
+          <MDBCarouselCaption style={{ background: 'rgba(0,0,0,0.7)' }}>
+            <h3 className="h3-responsive">The Croods: A New Age</h3>
+            <p>Animation, Adventure, Comedy | Director: Joel Crawford | 2020</p>
           </MDBCarouselCaption>
         </MDBCarouselItem>
         <MDBCarouselItem itemId="2">
           <MDBView>
             <img
               className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
+              src="/img/secondslide.jpg"
               alt="Second slide"
             />
           </MDBView>
-          <MDBCarouselCaption>
-          <MDBView>
-            <MDBMask overlay="black-light" />
-            <h3 className="h3-responsive">Light mask</h3>
-            <p>First text</p>
-          </MDBView>
+          <MDBCarouselCaption style={{ background: 'rgba(0,0,0,0.7)' }}>
+            <h3 className="h3-responsive">Wonder Woman 1984</h3>
+            <p>Action, Adventure, Fantasy | Director: Patty Jenkins | 2020</p>
           </MDBCarouselCaption>
         </MDBCarouselItem>
         <MDBCarouselItem itemId="3">
           <MDBView>
             <img
               className="d-block w-100"
-              src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
-              alt="Third slide"
+              src="/img/thirdslide.jpg"
+              alt="Second slide"
             />
           </MDBView>
-          <MDBCarouselCaption>
-          <MDBView>
-            <MDBMask overlay="black-light" />
-            <h3 className="h3-responsive">Light mask</h3>
-            <p>First text</p>
-          </MDBView>
+          <MDBCarouselCaption style={{ background: 'rgba(0,0,0,0.7)' }}>
+            <h3 className="h3-responsive">Monster Hunter</h3>
+            <p>Action, Adventure, Fantasy | Director: Paul W.S. Anderson | 2020</p>
           </MDBCarouselCaption>
         </MDBCarouselItem>
       </MDBCarouselInner>
