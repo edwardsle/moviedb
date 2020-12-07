@@ -5,133 +5,54 @@ MDBCardBody, MDBCardTitle, MDBCardText, MDBBtn } from "mdbreact";
 const FeaturedToday = () => {
   return (
     <MDBContainer className="mt-5">
-      <h1 className="h1">Featured Today</h1>
-      <MDBCarousel activeItem={1} length={3} slide={true} showControls={false} showIndicators={true} multiItem>
+      <h1 className="h1">Charts</h1>
+      <MDBCarousel activeItem={1} length={1} slide={true} showControls={false} showIndicators={false} multiItem>
         <MDBCarouselInner>
           <MDBRow>
             <MDBCarouselItem itemId="1">
               <MDBCol md="4">
                 <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" />
+                  <a href="charts/most-popular">
+                  <MDBCardImage className="img-fluid" src="img/charts/most-popular.jpg" />
+                  </a>
                   <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
+                    <MDBCardTitle>Most Popular Movies</MDBCardTitle>
                     <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      As determined by IMDb Users
                     </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
+                    <MDBBtn color="dark" href="charts/most-popular">View Chart</MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
               <MDBCol md="4">
                 <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" />
+                  <a href="charts/most-popular-tvs">
+                  <MDBCardImage className="img-fluid" src="img/charts/most-popular-tvs.jpg" />
+                  </a>
                   <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
+                    <MDBCardTitle>Most Popular TV Shows</MDBCardTitle>
                     <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      As determined by IMDb Users
                     </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
+                    <MDBBtn color="dark" href="charts/most-popular-tvs">View Chart</MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
               <MDBCol md="4">
                 <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg" />
+                  <a href="charts/top-rated-movies">
+                  <MDBCardImage className="img-fluid" src="img/charts/top-rated-movies.jpg" />
+                  </a>
                   <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
+                    <MDBCardTitle>Top Rated Movies</MDBCardTitle>
                     <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      Ratings from at least 25000 users
                     </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
+                    <MDBBtn color="dark" href="charts/top-rated-movies">View Chart</MDBBtn>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
-            </MDBCarouselItem>
-            <MDBCarouselItem itemId="2">
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(60).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(47).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(48).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBCarouselItem>
-            <MDBCarouselItem itemId="3">
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(53).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(45).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-              <MDBCol md="4">
-                <MDBCard className="mb-2">
-                  <MDBCardImage className="img-fluid" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(41).jpg" />
-                  <MDBCardBody>
-                    <MDBCardTitle>MDBCard title</MDBCardTitle>
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
-                    <MDBBtn color="dark">MDBBtn</MDBBtn>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBCarouselItem>
+            </MDBCarouselItem>            
           </MDBRow>
         </MDBCarouselInner>
       </MDBCarousel>

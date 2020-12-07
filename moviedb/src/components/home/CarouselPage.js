@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from
+import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
 "mdbreact";
 
 const CarouselPage = () => {
@@ -17,7 +17,7 @@ const CarouselPage = () => {
           <MDBView>
             <img
               className="d-block w-100"
-              src="/img/firstslide.jpg"
+              src="/img/main-slide/firstslide.jpg"
               alt="First slide"
             />
           </MDBView>
@@ -30,7 +30,7 @@ const CarouselPage = () => {
           <MDBView>
             <img
               className="d-block w-100"
-              src="/img/secondslide.jpg"
+              src="/img/main-slide/secondslide.jpg"
               alt="Second slide"
             />
           </MDBView>
@@ -43,7 +43,7 @@ const CarouselPage = () => {
           <MDBView>
             <img
               className="d-block w-100"
-              src="/img/thirdslide.jpg"
+              src="/img/main-slide/thirdslide.jpg"
               alt="Second slide"
             />
           </MDBView>

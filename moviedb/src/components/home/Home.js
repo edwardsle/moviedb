@@ -1,6 +1,7 @@
 import React  from 'react';
 import CarouselPage from './CarouselPage';
 import FeaturedToday from './FeaturedToday';
+import MostPopularMovies from '../charts/MostPopularMovies';
 
 const Home = () => {
   return (
