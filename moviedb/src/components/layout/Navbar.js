@@ -17,9 +17,11 @@ render() {
     <MDBNavbar color="elegant-color" dark expand="md">
       <MDBContainer>
         <MDBNavbarBrand>
+          <a href="/">
           <span className="warning-color border border-warning rounded p-2">
             <strong className="dark-text">MovieDb</strong>
           </span>
+          </a>
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
