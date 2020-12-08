@@ -21,7 +21,11 @@ render() {
           <span className="warning-color border border-warning rounded p-2">
             <strong className="dark-text">MovieDb</strong>
           </span>
+<<<<<<< Updated upstream
           </a>
+=======
+          </a>          
+>>>>>>> Stashed changes
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
@@ -56,7 +60,7 @@ render() {
           </MDBCol>
           <MDBNavbarNav right>
           <MDBNavItem>
-              <MDBNavLink className="waves-effect waves-light" to="/cart">
+              <MDBNavLink className="waves-effect waves-light" to="/account/cart">
               <MDBIcon icon="shopping-cart" />
               <MDBBadge color="danger" className="ml-1">0</MDBBadge>
               </MDBNavLink>
@@ -70,7 +74,7 @@ render() {
                   <MDBDropdownItem href="/login"><MDBIcon icon="sign-in-alt" /> Log In</MDBDropdownItem>
                   <MDBDropdownItem href="/register"><MDBIcon icon="edit" /> Sign Up</MDBDropdownItem>
                   <hr/>
-                  <MDBDropdownItem href="/cart">Cart</MDBDropdownItem>
+                  <MDBDropdownItem href="/account/cart">Cart</MDBDropdownItem>
                   <MDBDropdownItem href="/checkout">Checkout</MDBDropdownItem>
                   <hr/>
                   <MDBDropdownItem href="/account/watchlist"><MDBIcon far icon="list-alt" /> Watchlists</MDBDropdownItem>
