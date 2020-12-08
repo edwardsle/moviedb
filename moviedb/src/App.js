@@ -5,6 +5,7 @@ import Footer from './components/layout/Footer';
 import Home from './components/home/Home';
 import MostPopularMovies from './components/charts/MostPopularMovies';
 import MostPopularTVs from './components/charts/MostPopularTVs';
+import BestMovies from './components/charts/BestMovies';
 import Register from "./components/register/Register";
 import Login from "./components/register/Login";
 import Cart from "./components/account/cart";
@@ -28,6 +29,7 @@ class App extends Component {
             <Route exact path="/search/result" component={SearchResultPage} />
             <Route exact path="/charts/most-popular" component={MostPopularMovies} />
             <Route exact path="/charts/most-popular-tvs" component={MostPopularTVs} />
+            <Route exact path="/charts/top-rated-movies" component={BestMovies} />
           </Switch>
           <Footer />
         </Router>

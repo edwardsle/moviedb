@@ -5,13 +5,13 @@ import MovieListCardItem from '../movie/MovieListCardItem';
 import { Consumer } from '../../context';
 import axios from 'axios';
 
-class MostPopularMovies extends Component {
+class BestMovies extends Component {
   state = {
     movie_list: []
   };
 
   componentDidMount(){
-    axios.get(`https://imdb-api.com/en/API/MostPopularMovies/${process.env.REACT_APP_IMDB_KEY}`)
+    axios.get(`https://imdb-api.com/en/API/Top250Movies/${process.env.REACT_APP_IMDB_KEY}`)
       .then(res => {
         const movie_list = res.data;
         this.setState({ movie_list });
@@ -26,7 +26,7 @@ class MostPopularMovies extends Component {
     } else {      
       return(
         <MDBContainer className="mt-5">
-          <h1 className="h1">Most Popular</h1>
+          <h1 className="h1">Top 250 Rated Movies</h1>
           {(this.state.movie_list.items || []).map(item => (
             <MovieListCardItem movie={item}/>
           ))}
@@ -36,4 +36,4 @@ class MostPopularMovies extends Component {
   }
 }
 
-export default MostPopularMovies;
+export default BestMovies;

@@ -17,7 +17,6 @@ const CarouselPage = () => {
           <MDBView>
             <img
               className="d-block w-100"
-<<<<<<< Updated upstream
               src="/img/main-slide/firstslide.jpg"
               alt="First slide"
             />
@@ -25,18 +24,6 @@ const CarouselPage = () => {
           <MDBCarouselCaption style={{ background: 'rgba(0,0,0,0.7)' }}>
             <h3 className="h3-responsive">The Croods: A New Age</h3>
             <p>Animation, Adventure, Comedy | Director: Joel Crawford | 2020</p>
-=======
-              src="/img/firstslide.jpg"
-              alt="First slide"
-            />
-          </MDBView>
-          <MDBCarouselCaption>
-            <MDBView>
-              <MDBMask overlay="black-light" />
-              <h3 className="h3-responsive white-text">The Croods 2: A New Age</h3>
-              <p className="white-text">Animation, Adventure, Comedy | 2020 | Director: Joel Crawford</p>
-            </MDBView>
->>>>>>> Stashed changes
           </MDBCarouselCaption>
         </MDBCarouselItem>
         <MDBCarouselItem itemId="2">

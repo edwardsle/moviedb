@@ -11,34 +11,29 @@ class MostPopularTVs extends Component {
   };
 
   componentDidMount(){
-    axios.get(`https://imdb-api.com/en/API/MostPopularTVs/k_54e996be`)
+    axios.get(`https://imdb-api.com/en/API/MostPopularTVs/${process.env.REACT_APP_IMDB_KEY}`)
       .then(res => {
-        console.log(res.data)
+        const movie_list = res.data;
+        this.setState({ movie_list });
+        console(res.data);
       })
       .catch(err => console.log(err));
   }
-
+  
   render() {
-    return (
-      <Consumer>
-        {value => {
-            const { movie_list } = value;
-            if(movie_list === undefined || movie_list.length === 0){
-              return <Spinner />
-            } else {
-              return (
-                <MDBContainer className="mt-5">
-                <h1 className="h1">Most Popular TV Shows</h1>             
-                  {movie_list.items.map(item => (
-                    <MovieListCardItem movie={item}/>
-                  ))}
-                </MDBContainer>
-              );
-            }
-        }}
-      </Consumer>
-    );
-  }  
+    if (this.state.movie_list === undefined && this.state.acessos.length === 0) {
+      return (<Spinner />);
+    } else {      
+      return(
+        <MDBContainer className="mt-5">
+          <h1 className="h1">Most Popular TV Shows</h1>
+          {(this.state.movie_list.items || []).map(item => (
+            <MovieListCardItem movie={item}/>
+          ))}
+        </MDBContainer>
+      );
+    }
+  }
 }
 
 export default MostPopularTVs;

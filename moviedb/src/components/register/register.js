@@ -40,41 +40,23 @@ export default function Register() {
                         <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
                         Your name
                         </label>
-<<<<<<< Updated upstream
                         <input type="text" onChange={(e)=> {setName(e.target.value);}} i id="defaultFormRegisterNameEx" className="form-control" required/>
-=======
-                        <input type="text" id="defaultFormRegisterNameEx" className="form-control" required />
->>>>>>> Stashed changes
                         <br />
                         <label htmlFor="defaultFormAccountAddress" className="grey-text">
                         Address
                         </label>
-<<<<<<< Updated upstream
                         <input type="text" onChange={(e)=> {setAddress(e.target.value);}} i id="defaultFormAccountAddress" className="form-control" required/>
-=======
-                        <input type="text" id="defaultFormAccountAddress" className="form-control" required />
->>>>>>> Stashed changes
                         <br/>
                         <hr/>
                         <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
                         Your email
                         </label>
-<<<<<<< Updated upstream
                         <input type="email" onChange={(e)=> {setEmail(e.target.value);}} id="defaultFormRegisterEmailEx" className="form-control" required />
                         <br />
                         <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">
                         Your password
                         </label>
                         <input type="text" onChange={(e)=> {setPass(e.target.value);}} i id="defaultFormRegisterPasswordEx" className="form-control" required/>
-=======
-                        <input type="email" id="defaultFormRegisterEmailEx" className="form-control" required />
-                        <br />                        
-                        <label htmlFor="defaultFormRegisterPasswordEx" className="grey-text">
-                        Your password
-                        </label>
-                        <input type="text" id="defaultFormRegisterPasswordEx" className="form-control" required />
-                        <br />
->>>>>>> Stashed changes
                         <div className="text-center mt-4">
                         <MDBBtn  onClick={submitForm} color="dark" type="submit">
                             Register

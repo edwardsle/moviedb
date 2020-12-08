@@ -21,11 +21,7 @@ render() {
           <span className="warning-color border border-warning rounded p-2">
             <strong className="dark-text">MovieDb</strong>
           </span>
-<<<<<<< Updated upstream
           </a>
-=======
-          </a>          
->>>>>>> Stashed changes
         </MDBNavbarBrand>
         <MDBNavbarToggler onClick={this.toggleCollapse} />
         <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
