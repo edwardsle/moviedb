@@ -41,7 +41,7 @@ app.post("/user/signup", async (req, res) => {
     try {
         const { email, name, address, password } = req.body;
         console.log(req.body);
-        const mySQL = await db.query("insert into moviedb.register (email,full_name,address,pass) values ($1,$2,$3,$4)",
+        const mySQL = await db.query("insert into moviedb.customers (email,full_name,address,pass) values ($1,$2,$3,$4)",
             [email, name, address, password]);
     } catch (err) {
         console.error(err.message);
@@ -58,7 +58,7 @@ app.get("/user/login", async (req, res) => {
                 return res.status(400).send(err);
             }
             else {
-                db.query("select * from moviedb.register where register.email = $1 and register.pass = $2",
+                db.query("select * from moviedb.customers where customers.email = $1 and customers.password = $2;",
                     [email, password], function (err, table) {
                         done();
                         if (err) {
