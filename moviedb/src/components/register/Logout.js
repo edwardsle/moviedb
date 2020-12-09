@@ -1,4 +1,5 @@
-import React from 'react'
+  
+import React,{Redirect} from 'react'
 import Axios from 'axios'
 
 export default function Logout() {
@@ -13,6 +14,7 @@ export default function Logout() {
 
     return(
         <> 
+        {/* <Redirect path="/" /> */}
         </>
     )
 }

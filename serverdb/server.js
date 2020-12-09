@@ -9,8 +9,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-// const jwt = require('jsonwebtoken');
-// const secretKey = "datatest";
+const jwt = require('jsonwebtoken');
 
 //need to add {} to work with session
 app.use(cors({
@@ -40,7 +39,6 @@ app.use(express.json()) // =>req.body
 app.post("/user/signup", async (req, res) => {
     try {
         const { email, name, address, password } = req.body;
-        console.log(req.body);
         const mySQL = await db.query("insert into moviedb.customers (email,full_name,address,pass) values ($1,$2,$3,$4)",
             [email, name, address, password]);
     } catch (err) {
@@ -48,58 +46,71 @@ app.post("/user/signup", async (req, res) => {
     }
 })
 
+//Check Login
+app.get("/user/login", (req,res) => {
+    if(req.session.user){ 
+        res.send({loggedIn:true, user: req.session.user});
+    }
+    else{
+        res.send({loggedIn:false});
+    }
+})
+
 //Login users
-app.get("/user/login", async (req, res) => {
+app.post("/user/login", (req, res) => {
     try {
-        var email = req.query.email;
-        var password = req.query.pass;
-        db.connect(function (err, db, done) {
-            if (err) {
-                return res.status(400).send(err);
-            }
-            else {
-                db.query("select * from moviedb.customers where customers.email = $1 and customers.password = $2;",
-                    [email, password], function (err, table) {
-                        done();
-                        if (err) {
-                            return res.status(400).send(err);
-                        }
-                        else {
-                            if (table.rows == 0) {
-                                return res.json({
-                                    message: 'Wrong email or password'
-                                });
-                            }
-                            else {
-                                req.session.user = table.rows;
-                                // console.log(req.session.user);
-                                return res.json({
-                                    message: 'loggin successfully'
-                                }
-                                )
-                            }
-                        }
-                    });
-            }
-        })
+        const email = req.body.email;
+        const password = req.body.pass;
+        db.query("select * from moviedb.customers where customers.email = $1;",
+            [email], function (err, result) {
+                if (err) {
+                    return res.send({ err: err });
+                }
+                if (result.rowCount > 0) {
+                    if (result.rows[0].password == password) {
+                        const id  = result.rows[0].id;
+                        const token = jwt.sign({id}, "datatest",{
+                            expiresIn: 300,
+                        })
+                        req.session.user = result.rows;
+                        res.json({auth: true, token:token, result:result.rows});
+                    }
+                    else {
+                        res.send({ message: "Wrong username/password" })
+                    }
+                }
+                else {
+                    res.send({ message: "User doesn't exist" })
+                }
+            });
     } catch (err) {
         console.error(err.message);
     }
 })
 
-//Check user login
-app.get("/user/auth", async (req, res) => {
-    try {
-        if (req.session.user) {
-            res.send({ loggedIn: true, user: req.session.user });
-        }
-        else {
-            res.send({ loggedIn: false });
-        }
-    } catch (err) {
-        console.error(err.message);
+const verifyJWT = (req,res,next)  => {
+    const token = req.header["x-access-token"];
+    if(!token) {
+        res.send("You need token")
     }
+    else{
+        jwt.verify(token, "datatest",(err,decoded) => {
+            if(err) {
+                res.json({auth:false, message: "Authentification failed"})
+            }
+            else{
+                req.userId = decoded.id;
+                next();
+            }
+        })
+    }
+}
+
+app.get('/user/isLogin',verifyJWT, (req,res) => {
+    res.send("you are logged in")
 })
+
+
 
 //Logout user
 app.get("/user/logout", async (req, res) => {

@@ -1,7 +1,8 @@
 import React, {Fragment} from 'react'
 import { MDBContainer, MDBCard, MDBCardBody, MDBCardHeader, MDBCardText, MDBIcon, MDBFormInline, MDBBtn, MDBInput } from 'mdbreact'
 
-export default function SearchPage() {
+const SearchPage = (props) => {
+    
     return (
         <MDBContainer>
             <MDBCard className="mt-5">
@@ -18,3 +19,5 @@ export default function SearchPage() {
         </MDBContainer>
     )
 }
+
+export default SearchPage

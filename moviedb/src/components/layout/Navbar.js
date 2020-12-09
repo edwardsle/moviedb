@@ -1,19 +1,28 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavLink, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBContainer, MDBCol, MDBBadge } from "mdbreact";
 import { BrowserRouter as Router } from 'react-router-dom';
+
 import Axios from 'axios';
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-  }
   state = {
     isOpen: false,
-
+    isLogged: "",
+    userName: ""
   };
 
+  componentDidMount() {
+    this.authListenser();
+  }
+
+  authListenser() {
+    Axios.get("http://localhost:3001/user/login").then((response) => {
+      if (response.data.loggedIn == true) {
+        this.setState({ isLogged: response.data.loggedIn })
+        this.setState({ userName: (response.data.user[0].firstname + ' ' + response.data.user[0].lastname) });
+      }
+    })
+  }
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
   }
@@ -74,16 +83,24 @@ class Navbar extends Component {
                       <MDBIcon icon="user" />
                     </MDBDropdownToggle>
                     <MDBDropdownMenu color="dark" basic>
-                      <MDBDropdownItem href="/login"><MDBIcon icon="sign-in-alt" /> Log In</MDBDropdownItem>
-                      <MDBDropdownItem href="/register"><MDBIcon icon="edit" /> Sign Up</MDBDropdownItem>
-                      
+                      {this.state.isLogged ?
+                        <>
+                          <MDBDropdownItem href="/login"> {this.state.userName}</MDBDropdownItem>
+                          <MDBDropdownItem href="/logout"><MDBIcon icon="sign-out-alt" /> Logout</MDBDropdownItem>
+                        </>
+                        :
+                        <>
+                          <MDBDropdownItem href="/login"><MDBIcon icon="sign-in-alt" /> Log In</MDBDropdownItem>
+                          <MDBDropdownItem href="/register"><MDBIcon icon="edit" /> Sign Up</MDBDropdownItem>
+                        </>
+                      }
                       <hr />
                       <MDBDropdownItem href="/account/cart">Cart</MDBDropdownItem>
                       <MDBDropdownItem href="/checkout">Checkout</MDBDropdownItem>
                       <hr />
                       <MDBDropdownItem href="/account/watchlist"><MDBIcon far icon="list-alt" /> Watchlists</MDBDropdownItem>
                       <MDBDropdownItem href="/account/orders"><MDBIcon icon="file-invoice-dollar" /> Order History</MDBDropdownItem>
-                      
+                      <MDBDropdownItem href="/logout"><MDBIcon icon="sign-out-alt" /> Log Out</MDBDropdownItem>
                       <hr />
                       <MDBDropdownItem href="/help"><MDBIcon far icon="question-circle" /> Help Center</MDBDropdownItem>
                     </MDBDropdownMenu>
@@ -99,3 +116,5 @@ class Navbar extends Component {
 }
 
 export default Navbar;
+
+

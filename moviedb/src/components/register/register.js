@@ -9,7 +9,6 @@ export default function Register() {
     const [address, setAddress] = React.useState("");
     
     const submitForm = e => {
-        
         axios.post("http://localhost:3001/user/signup",{ 
             name:name,
             email:email,

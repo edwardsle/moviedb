@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Redirect } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -12,17 +12,49 @@ import Cart from "./components/account/cart";
 import SearchPage from "./components/search/layout/SearchPage";
 import SearchResultPage from "./components/search/Result";
 import Logout from "./components/register/Logout";
+import Axios from "axios";
 
 import { Provider } from './context';
 
 class App extends Component {
-  constructor() {
-    super();
-    
+  constructor(props) {
+    super(props);
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    }
+      isLogged: false
+    };
+  }
+
+  RedirectLoginReg = ({ children, ...props }) => {
+    console.log(props);
+    return (
+      <Route
+        path={props.path}
+        render={({ location }) =>
+          this.state.isLogged === false ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/home",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  };
+
+  componentDidMount() {
+    this.checkLoggedIn()
+  }
+
+  checkLoggedIn = () => {
+    Axios.get("http://localhost:3001/user/login").then((response) => {
+      if (response.data.loggedIn === true) {
+        this.setState({ isLogged: response.data.loggedIn })
+      }
+    })
   }
 
   render() {
@@ -34,7 +66,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/logout" component={Logout}/>
+            <Route exact path="/logout" component={Logout} />
             <Route exact path="/account/cart" component={Cart} />
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/search/result" component={SearchResultPage} />
@@ -45,7 +77,7 @@ class App extends Component {
           <Footer />
         </Router>
       </Provider>
-      
+
     );
   }
 }
