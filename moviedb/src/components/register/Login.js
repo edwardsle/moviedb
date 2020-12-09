@@ -8,17 +8,7 @@ export default function Login() {
 
     const [email, setEmail] = React.useState("");
     const [pass, setPass] = React.useState("");
-    const [userName, setUsername] = React.useState("");
     const [message, setMessage] = React.useState("");
-
-    useEffect(() => {
-        Axios.get("http://localhost:3001/user/auth").then((response) => {
-            console.log(response);
-            if (response.data.loggedIn == true) {
-                setUsername(response.data.user[0].full_name);
-            }
-        })
-    }, []);
 
     const submitForm = e => {
         e.preventDefault()
@@ -29,7 +19,10 @@ export default function Login() {
             }
         })
             .then((response) => {
-                if (response.status === 200) {
+                if (response.data.message === "loggin sucessfully") {
+                    this.props.handleSuccessfulAuth(response.data);
+                }
+                else {
                     setMessage(response.data.message);
                 }
             }, (error) => {

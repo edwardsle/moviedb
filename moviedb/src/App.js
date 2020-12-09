@@ -11,10 +11,20 @@ import Login from "./components/register/Login";
 import Cart from "./components/account/cart";
 import SearchPage from "./components/search/layout/SearchPage";
 import SearchResultPage from "./components/search/Result";
+import Logout from "./components/register/Logout";
 
 import { Provider } from './context';
 
 class App extends Component {
+  constructor() {
+    super();
+    
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    }
+  }
+
   render() {
     return (
       <Provider>
@@ -24,6 +34,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={Logout}/>
             <Route exact path="/account/cart" component={Cart} />
             <Route exact path="/search" component={SearchPage} />
             <Route exact path="/search/result" component={SearchResultPage} />

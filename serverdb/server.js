@@ -72,7 +72,7 @@ app.get("/user/login", async (req, res) => {
                             }
                             else {
                                 req.session.user = table.rows;
-                                console.log(req.session.user);
+                                // console.log(req.session.user);
                                 return res.json({
                                     message: 'loggin successfully'
                                 }
@@ -101,6 +101,18 @@ app.get("/user/auth", async (req, res) => {
     }
 })
 
+//Logout user
+app.get("/user/logout", async (req, res) => {
+    try {
+        if (req.session.user) {
+            res.send({ loggedIn: false, user: req.session.destroy() });
+        }
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 app.listen(3001, () => {
     console.log("Server is listening on port 3001");
 })
+
