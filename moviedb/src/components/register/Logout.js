@@ -1,5 +1,5 @@
   
-import React,{Redirect} from 'react'
+import React from 'react'
 import Axios from 'axios'
 
 export default function Logout() {

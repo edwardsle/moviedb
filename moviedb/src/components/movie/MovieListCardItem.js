@@ -1,6 +1,6 @@
-import React, { Fagment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { MDBCard, MDBCardHeader, MDBCardImage, MDBIcon } from 'mdbreact';
+import { MDBCard, MDBCardHeader, MDBCardImage } from 'mdbreact';
 const MovieListCardItem = (props) => {
   const { movie } = props;
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBAlert, MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody } from 'mdbreact';
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 

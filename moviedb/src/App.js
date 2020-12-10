@@ -1,5 +1,5 @@
 import React, { Component, Redirect } from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './components/home/Home';
@@ -9,9 +9,8 @@ import BestMovies from './components/charts/BestMovies';
 import Register from "./components/register/Register";
 import Login from "./components/register/Login";
 import Cart from "./components/account/cart";
-import SearchPage from "./components/search/layout/SearchPage";
-import SearchResultPage from "./components/search/Result";
 import Logout from "./components/register/Logout";
+import MoviePage from './components/movie/MoviePage'
 import Axios from "axios";
 
 import { Provider } from './context';
@@ -68,11 +67,10 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/account/cart" component={Cart} />
-            <Route exact path="/search" component={SearchPage} />
-            <Route exact path="/search/result" component={SearchResultPage} />
             <Route exact path="/charts/most-popular" component={MostPopularMovies} />
             <Route exact path="/charts/most-popular-tvs" component={MostPopularTVs} />
             <Route exact path="/charts/top-rated-movies" component={BestMovies} />
+            <Route exact path="/movie/:id" component={MoviePage} />
           </Switch>
           <Footer />
         </Router>

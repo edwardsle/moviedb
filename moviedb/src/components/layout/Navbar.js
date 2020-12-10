@@ -1,14 +1,22 @@
 import React, { Component } from "react";
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavLink, MDBNavItem, MDBNavbarToggler, MDBCollapse, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem, MDBIcon, MDBContainer, MDBCol, MDBBadge } from "mdbreact";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import axios from 'axios';
 
 import Axios from 'axios';
 
 class Navbar extends Component {
+  constructor(props){
+    super(props);
+    this.timeout =  0;
+  }
+
   state = {
     isOpen: false,
     isLogged: "",
-    userName: ""
+    userName: "",
+    movieTitle: "",
+    movie_list: []
   };
 
   componentDidMount() {
@@ -17,7 +25,7 @@ class Navbar extends Component {
 
   authListenser() {
     Axios.get("http://localhost:3001/user/login").then((response) => {
-      if (response.data.loggedIn == true) {
+      if (response.data.loggedIn) {
         this.setState({ isLogged: response.data.loggedIn })
         this.setState({ userName: (response.data.user[0].firstname + ' ' + response.data.user[0].lastname) });
       }
@@ -25,6 +33,28 @@ class Navbar extends Component {
   }
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
+  }
+
+  onChange = (e) => {
+    e.preventDefault();
+    this.setState({ movieTitle: e.target.value });
+    var isInputDone = 0;
+    if(this.timeout) clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      isInputDone = 1;
+      console.log(isInputDone);
+      if(isInputDone === 1){
+        axios.get(`http://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&s=${this.state.movieTitle}`)
+        .then(res => {
+        const movie_list = res.data.Search;
+        this.setState({ movie_list });  
+        console.log(this.state.movie_list);    
+        })
+        .catch(err => console.log(err));
+      }
+    }, 1000);    
+
+    
   }
 
   render() {
@@ -63,12 +93,30 @@ class Navbar extends Component {
               <MDBCol>
                 <div className="input-group md-form form-sm form-1 m-0 p-0">
                   <div className="input-group-prepend">
-                    <span className="input-group-text bg-dark" id="basic-text1">
-                      <MDBIcon className="text-white" icon="search" />
-                    </span>
+                      <span className="input-group-text bg-dark" id="basic-text1">
+                          <MDBIcon className="text-white" icon="search" />
+                      </span>
                   </div>
-                  <input className="form-control my-0 py-0 border border-left-0 rounded-right bg-white" type="text" placeholder="Search" aria-label="Search" />
+                  <input 
+                  className="form-control my-0 py-0 border border-left-0 rounded-right bg-white" 
+                  type="text" 
+                  name="movieTitle" 
+                  placeholder = "Search movies ..."
+                  onChange = { this.onChange }
+                  value={this.state.movieTitle}
+                  aria-label="Search" 
+                  />
                 </div>
+                <ul className="list-group position-absolute" style={{zIndex: "1000", width: "96.3%"}}>
+                {
+                  (this.state.movie_list || []).map((val, key) => {
+                    return(
+                      
+                        <li className="list-group-item"><a href={`/movie/${val.imdbID}`}>{val.Title} ({val.Year})</a></li>
+                    );
+                  })
+                }
+                </ul>
               </MDBCol>
               <MDBNavbarNav right>
                 <MDBNavItem>

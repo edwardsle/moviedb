@@ -13,19 +13,19 @@ const Footer = () => {
             <p><strong>Yong Kim</strong> - CWID: 888250156</p>
           </MDBCol>
           <MDBCol md="8">
-            <h5 className="title">Links</h5>
+            <h5 className="title">About Me</h5>
             <ul>
               <li className="list-unstyled">
-                <a href="#!">Link 1</a>
+                <a href="#!">Resume</a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 2</a>
+                <a href="#!">Website</a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 3</a>
+                <a href="#!">Portfolio</a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 4</a>
+                <a href="#!">Contact</a>
               </li>
             </ul>
           </MDBCol>
