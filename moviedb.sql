@@ -90,6 +90,4 @@ create table if not exists movies_in_collection (
 	rank integer
 );
 
-
-
-
+insert into moviedb.watchlist(title,customerid) values ('dfasdasdasd', '490001');

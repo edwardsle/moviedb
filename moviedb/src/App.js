@@ -34,7 +34,7 @@ class App extends Component {
           ) : (
             <Redirect
               to={{
-                pathname: "/home",
+                pathname: "/",
                 state: { from: location }
               }}
             />

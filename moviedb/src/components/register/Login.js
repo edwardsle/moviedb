@@ -32,7 +32,8 @@ export default class Login extends React.Component {
             }
             else {
                 localStorage.setItem("token", response.data.token)
-                this.setState({ loggedIn: true })
+                sessionStorage.setItem("userSession", response.data.user)
+                this.setState({ loggedIn: response.data.auth })
             }
         })
     }

@@ -10,7 +10,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const jwt = require('jsonwebtoken');
-
+var loggedIn = false;
 //need to add {} to work with session
 app.use(cors({
     origin: ["http://localhost:3000"],
@@ -68,19 +68,24 @@ app.post("/user/login", (req, res) => {
                 }
                 if (result.rowCount > 0) {
                     if (result.rows[0].password == password) {
-                        const id  = result.rows[0].id;
-                        const token = jwt.sign({id}, "datatest",{
+                        const id = result.rows[0].id;
+                        const name  = result.rows[0].firstname+ " " +result.rows[0].lastname;
+                        const token = jwt.sign({id, name}, "datatest",{
                             expiresIn: 300,
                         })
-                        req.session.user = result.rows;
-                        res.json({auth: true, token:token, result:result.rows});
+                        req.session.user = name;
+                        console.log(email);
+                        console.log(password);
+                        console.log(req.session.user);
+                        res.json({auth: true, token:token, user:result.rows});
+                        loggedIn = true;
                     }
                     else {
-                        res.send({ message: "Wrong username/password" })
+                        res.json({auth:false, message: "Wrong username/password" })
                     }
                 }
                 else {
-                    res.send({ message: "User doesn't exist" })
+                    res.json({auth:false, message: "User doesn't exist" })
                 }
             });
     } catch (err) {
@@ -89,7 +94,7 @@ app.post("/user/login", (req, res) => {
 })
 
 const verifyJWT = (req,res,next)  => {
-    const token = req.header["x-access-token"];
+    const token = req.headers["x-access-token"];
     if(!token) {
         res.send("You need token")
     }
@@ -99,7 +104,7 @@ const verifyJWT = (req,res,next)  => {
                 res.json({auth:false, message: "Authentification failed"})
             }
             else{
-                req.userId = decoded.id;
+                req.userName = decoded.name;
                 next();
             }
         })
@@ -107,7 +112,7 @@ const verifyJWT = (req,res,next)  => {
 }
 
 app.get('/user/isLogin',verifyJWT, (req,res) => {
-    res.send("you are logged in")
+    res.send(loggedIn);
 })
 
 
@@ -116,12 +121,39 @@ app.get('/user/isLogin',verifyJWT, (req,res) => {
 app.get("/user/logout", async (req, res) => {
     try {
         if (req.session.user) {
+            loggedIn = false;
             res.send({ loggedIn: false, user: req.session.destroy() });
         }
     } catch (err) {
         console.error(err.message);
     }
 })
+
+//add movie to wishlist
+app.post("/user/addtowatchlist", async (req, res) => {
+    try {
+        const id  = req.body.customerid;
+        const title = req.body.title;
+        db.query("insert into moviedb.watchlist(title,customerid) values ($1,$2)",[title,id]);
+        // db.query("select id from moviedb.watchlist where title = $1;",
+        //     [title], function (err, result) {
+        //         if (err) {
+        //             return res.send({ err: err });
+        //         }
+        //         if (result.rowCount > 0) {
+        //             db.query("insert into moviedb.movies_in_watchlist(title,customerid) values ($1,$2)",[title,id]);
+        //         }
+        //         else {
+        //             console.log("Movie title is not found");
+        //         }
+        //     });
+       
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+
 
 app.listen(3001, () => {
     console.log("Server is listening on port 3001");
