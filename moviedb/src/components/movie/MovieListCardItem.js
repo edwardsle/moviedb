@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MDBCard, MDBCardHeader, MDBCardImage } from 'mdbreact';
+import { MDBCard, MDBCardHeader, MDBCardImage, MDBIcon } from 'mdbreact';
 const MovieListCardItem = (props) => {
   const { movie } = props;
 
@@ -25,7 +25,9 @@ const MovieListCardItem = (props) => {
         <p>Year: {movie.year}</p>
         <Link to={`/movie/${movie.id}`} className="btn btn-dark btn-md mx-0 btn-rounded">
               <i className="fas fa-chevron-right"></i> Read more
-        </Link>
+        </Link>        
+        <button type="button" className="btn btn-sm btn-outline-dark btn-rounded waves-effect"><MDBIcon far icon="bookmark" /> Wishlist</button>
+        <button type="button" className="btn btn-sm btn-outline-dark btn-rounded waves-effect"><MDBIcon icon="cart-plus" /> Add to Cart</button>
       </div>
       <hr/>
     </div>
