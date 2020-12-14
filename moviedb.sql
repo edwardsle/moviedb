@@ -99,8 +99,64 @@ select watchlist.id, movies.id from moviedb.watchlist join moviedb.movies on mov
 
 select movies.id,movies.title,movies.year,movies.director from moviedb.movies join moviedb.wishlist on movies.id = wishlist.movieid and wishlist.customerid = '490001';
 
-
 delete from moviedb.wishlist where wishlist.movieid = 'tt0421974' and wishlist.customerid ='490001';
+
+
+select movies.id,movies.title,movies.year,movies.director from moviedb.movies 
+join moviedb.stars_in_movies 
+on stars_in_movies.movie_id = movies.id  
+where stars_in_movies.star_id = 'nm0854847';
+
+select movies.id,movies.title,movies.year,movies.director from moviedb.movies 
+join moviedb.genres_in_movies 
+on genres_in_movies.movieid = movies.id  
+where genres_in_movies.genreid = '2';
+
+
+select stars.id from moviedb.stars where stars.name = 'Fred Astaire';
+
+insert into moviedb.collection (title) values ('Best Movies ');
+insert into moviedb.collection (title) values ('Most Popular');
+insert into moviedb.collection (title) values ('Most Popular Tv Shows');
+
+select movies.id,movies.title,movies.year,movies.director,movies_in_collection.rank from moviedb.movies 
+join moviedb.movies_in_collection
+on movies_in_collection.movieid = movies.id  
+where movies_in_collection.collectionid = '1';
+
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0421974',3);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0378947',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0378947',6);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0344854',7);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0498380',7);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0455805',4);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0338751',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0352248',2);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0399146',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0266452',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0496634',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0164003',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0325123',8);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0343996',9);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0355295',10);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0424918',9);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0430357',10);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0413300',8);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0270393',8);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0166158',6);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0354595',6);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0412511',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0448157',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0390022',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0261311',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0477348',4);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0406816',2);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0342275',3);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0310910',4);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0475944',5);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0367153',1);
+insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0453562',2);
+
 
 insert into moviedb.wishlist(movieid,customerid) values ('tt0421974','490001');
 insert into moviedb.wishlist(movieid,customerid) values ('tt0378947','490001');
