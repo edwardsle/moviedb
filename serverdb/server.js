@@ -14,7 +14,7 @@ var loggedIn = false;
 //need to add {} to work with session
 app.use(cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
     credentials: true
 }));
 
@@ -73,11 +73,11 @@ app.post("/user/login", (req, res) => {
                         const token = jwt.sign({id, name}, "datatest",{
                             expiresIn: 300,
                         })
-                        req.session.user = name;
-                        console.log(email);
-                        console.log(password);
-                        console.log(req.session.user);
-                        res.json({auth: true, token:token, user:result.rows});
+                        req.session.user = result.rows[0];
+                        // console.log(email);
+                        // console.log(password);
+                        // console.log(result.rows[0]);
+                        res.json({auth: true, token:token, user:result.rows[0]});
                         loggedIn = true;
                     }
                     else {
@@ -104,7 +104,7 @@ const verifyJWT = (req,res,next)  => {
                 res.json({auth:false, message: "Authentification failed"})
             }
             else{
-                req.userName = decoded.name;
+                req.userId = decoded.id;
                 next();
             }
         })
@@ -112,10 +112,9 @@ const verifyJWT = (req,res,next)  => {
 }
 
 app.get('/user/isLogin',verifyJWT, (req,res) => {
-    res.send(loggedIn);
+    console.log(result.rows[0]);
+    res.send("You are authorized");
 })
-
-
 
 //Logout user
 app.get("/user/logout", async (req, res) => {
@@ -129,30 +128,105 @@ app.get("/user/logout", async (req, res) => {
     }
 })
 
+//all movies 
+app.get("/movie/all", async (req, res) => {
+    try {
+        db.query("select * from moviedb.movies", function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json({data: result.rows})
+            }
+            else {
+                res.json({message: "No result found" })
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//get movies by id
+app.get("/movie/:id", async(req,res) => {
+    try{
+        const id = req.params.id;
+        db.query("select * from moviedb.movies where movies.id = $1",[id], function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json({data: result.rows})
+            }
+            else {
+                res.json({message: "No result found" })
+            }
+        });
+    }catch(err) {
+        console.error(err.message)
+    }
+})
+
 //add movie to wishlist
 app.post("/user/addtowatchlist", async (req, res) => {
     try {
         const id  = req.body.customerid;
         const title = req.body.title;
         db.query("insert into moviedb.watchlist(title,customerid) values ($1,$2)",[title,id]);
-        // db.query("select id from moviedb.watchlist where title = $1;",
-        //     [title], function (err, result) {
-        //         if (err) {
-        //             return res.send({ err: err });
-        //         }
-        //         if (result.rowCount > 0) {
-        //             db.query("insert into moviedb.movies_in_watchlist(title,customerid) values ($1,$2)",[title,id]);
-        //         }
-        //         else {
-        //             console.log("Movie title is not found");
-        //         }
-        //     });
        
     } catch (err) {
         console.error(err.message);
     }
 })
 
+//all wishlist 
+app.get("/wishlist/:userID", async(req,res)=> {
+    try {
+        const user_id  = req.params.userID;
+        console.log(user_id);
+        db.query("select movies.id,movies.title,movies.year,movies.director "
+        + "from moviedb.movies join moviedb.wishlist on movies.id = wishlist.movieid "
+        + "and wishlist.customerid = $1",[user_id], function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json({data: result.rows})
+            }
+            else {
+                res.json({message: "No result found" })
+            }
+        });
+       
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//delete items wishlist
+app.delete("/watchlistDel", async(req,res)=> {
+    try {
+        const movieID  = req.body.movieID;
+        const userID = req.body.customerID;
+        console.log(movieID +  " " + userID);
+        db.query("delete from moviedb.wishlist where "
+        + "wishlist.movieid = $1 and wishlist.customerid = $2",[movieID,userID], function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                console.log(result.rows);
+                res.json({message: "Data deleted sucessfully"})
+            }
+            else {
+                res.json({message: "No result found" })
+            }
+        });
+       
+    } catch (err) {
+        console.error(err.message);
+    }
+})
 
 
 app.listen(3001, () => {

@@ -3,8 +3,6 @@ import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavLink, MDBNavItem, MDBNav
 import { BrowserRouter as Router } from 'react-router-dom';
 import axios from 'axios';
 
-import Axios from 'axios';
-
 class Navbar extends Component {
   constructor(props){
     super(props);
@@ -13,24 +11,11 @@ class Navbar extends Component {
 
   state = {
     isOpen: false,
-    isLogged: "",
-    userName: "",
     movieTitle: "",
     movie_list: []
   };
 
-  componentDidMount() {
-    this.authListenser();
-  }
-
-  authListenser() {
-    Axios.get("http://localhost:3001/user/login").then((response) => {
-      if (response.data.loggedIn) {
-        this.setState({ isLogged: response.data.loggedIn })
-        this.setState({ userName: (response.data.user[0].firstname + ' ' + response.data.user[0].lastname) });
-      }
-    })
-  }
+  
   toggleCollapse = () => {
     this.setState({ isOpen: !this.state.isOpen });
   }
@@ -161,6 +146,7 @@ class Navbar extends Component {
     );
   }
 }
+
 
 export default Navbar;
 

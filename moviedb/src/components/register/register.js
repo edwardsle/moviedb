@@ -22,6 +22,8 @@ export default function Register() {
         });
     };
 
+    
+
     return (
         <MDBContainer
             className='d-flex justify-content-center my-3 my-md-5'

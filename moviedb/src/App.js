@@ -18,44 +18,8 @@ import { Provider } from './context';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLogged: false
-    };
+    
   }
-
-  RedirectLoginReg = ({ children, ...props }) => {
-    console.log(props);
-    return (
-      <Route
-        path={props.path}
-        render={({ location }) =>
-          this.state.isLogged === false ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/",
-                state: { from: location }
-              }}
-            />
-          )
-        }
-      />
-    );
-  };
-
-  componentDidMount() {
-    this.checkLoggedIn()
-  }
-
-  checkLoggedIn = () => {
-    Axios.get("http://localhost:3001/user/login").then((response) => {
-      if (response.data.loggedIn === true) {
-        this.setState({ isLogged: response.data.loggedIn })
-      }
-    })
-  }
-
   render() {
     return (
       <Provider>

@@ -31,18 +31,18 @@ export default class Login extends React.Component {
                 this.setState({ error: response.data.message });
             }
             else {
-                localStorage.setItem("token", response.data.token)
-                sessionStorage.setItem("userSession", response.data.user)
+                console.log(response);
+                localStorage.setItem("token", "Bearer " + response.data.token)
                 this.setState({ loggedIn: response.data.auth })
             }
         })
     }
 
     render() {
-        if (this.state.loggedIn) {
-            return <Redirect to="/" />
-        }
-        else {
+        // if (this.state.loggedIn) {
+        //     return <Redirect to="/" />
+        // }
+        // else {
             return (
                 <MDBContainer
                     className='d-flex justify-content-center my-3 my-md-5'
@@ -78,5 +78,5 @@ export default class Login extends React.Component {
             )
         }
 
-    }
+    // }
 }
