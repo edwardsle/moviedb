@@ -386,7 +386,7 @@ app.get("/all/sale", (req,res)=> {
     try {
         db.query("select sales.customerid, sales.movieid, sales.saledate  "
         +"from moviedb.sales "
-        +"group by sales.customerid", function (err, result) {
+        +"group by sales.customerid, sales.movieid, sales.saledate ;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -436,7 +436,7 @@ app.get("/collection/bestmovie", (req, res) => {
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
         +"where movies_in_collection.collectionid = '1'"
-        +"group by movies.id;", function (err, result) {
+        +"group by movies.id;movies_in_collection.rank", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -461,7 +461,7 @@ app.get("/collection/mostpopular", (req, res) => {
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
         +"where movies_in_collection.collectionid = '2' "
-        +"group by movies_in_collection.rank ;", function (err, result) {
+        +"group by movies.id,movies_in_collection.rank ;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -485,8 +485,8 @@ app.get("/collection/tvshows", (req, res) => {
         +"from moviedb.movies "
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
-        +"where movies_in_collection.collectionid = '3';"
-        + "group by movies.year;", function (err, result) {
+        +"where movies_in_collection.collectionid = '3'"
+        + "group by movies.year,movies_in_collection.rank;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -501,9 +501,6 @@ app.get("/collection/tvshows", (req, res) => {
         console.error(err.message);
     }
 })
-
-
-
 
 app.listen(3001, () => {
     console.log("Server is listening on port 3001");
