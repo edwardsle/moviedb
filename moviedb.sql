@@ -124,6 +124,17 @@ join moviedb.movies_in_collection
 on movies_in_collection.movieid = movies.id  
 where movies_in_collection.collectionid = '1';
 
+select movies.id,movies.title,movies.year,movies.director,movies_in_collection.rank
+from moviedb.movies 
+inner join moviedb.movies_in_collection 
+on movies_in_collection.movieid = movies.id 
+where movies_in_collection.collectionid = '3'
+group by movies.id, movies_in_collection.rank;
+
+select sales.customerid, sales.movieid, sales.saledate 
+from moviedb.sales
+group by sales.customerid, sales.movieid, sales.saledate ;
+
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0421974',3);
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0378947',5);
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0378947',6);
