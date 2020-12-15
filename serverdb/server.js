@@ -436,7 +436,7 @@ app.get("/collection/bestmovie", (req, res) => {
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
         +"where movies_in_collection.collectionid = '1'"
-        +"group by movies.id;movies_in_collection.rank", function (err, result) {
+        +"group by movies.id,movies_in_collection.rank;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
