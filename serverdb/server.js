@@ -342,6 +342,31 @@ app.get("/genras/:id", (req, res) => {
     }
 })
 
+//Get poster by movieID
+//localhost:3001/poster/:movieID   Method: GET
+app.get("/poster/:movieID", (req, res) => {
+    try {
+        const movieid = req.params.movieID;
+        db.query("select posterurl "
+        +"from moviedb.posters "
+        +"join moviedb.movies"
+        +"on posters.movie_id = movies.id "
+        +"where movies.id = $1;", [movieid], function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json({ data: result.rows })
+            }
+            else {
+                res.json({ message: "No result found" })
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 //find best movie 
 //localhost:3001/collection/bestmovie   Method: GET
 app.get("/collection/bestmovie", (req, res) => {
