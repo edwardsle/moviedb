@@ -367,6 +367,66 @@ app.get("/poster/:movieID", (req, res) => {
     }
 })
 
+//insert purchase
+//localhost:3001/sale       Method: POST
+app.get("/sale", (req,res) => {
+    try {
+        const customerid = req.body.customerID;
+        const movieid = req.body.movieID;
+        db.query("insert into moviedb.sales(customerid,movieid) values ($1,$2)", [customerid, movieid]);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+
+//get all sales
+//localhost:3001/all/sale   Method: GET
+app.get("/all/sale", (req,res)=> {
+    try {
+        db.query("select sales.customerid, sales.movieid, sales.saledate  "
+        +"from moviedb.sales "
+        +"group by sales.customerid", function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json({ data: result.rows })
+            }
+            else {
+                res.json({ message: "No result found" })
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//get sales by id
+//localhost:3001/all/sale/:id   Method: GET
+app.get("/all/sale/:userID", (req,res)=> {
+    try {
+        const customerID = req.params.userID;
+        db.query("select movies.id,movies.title,movies.year,movies.director "
+        +"from moviedb.movies "
+        +"join moviedb.sales "
+        +"on sales.movieid = movies.id  "
+        +"where customerid = $1;", [customerID], function (err, result) {
+            if (err) {
+                return res.send({ err: err });
+            }
+            if (result.rowCount > 0) {
+                res.json(result.rows);
+            }
+            else {
+                res.json({message: "No data found"});
+            }
+        });
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 //find best movie 
 //localhost:3001/collection/bestmovie   Method: GET
 app.get("/collection/bestmovie", (req, res) => {
@@ -375,7 +435,8 @@ app.get("/collection/bestmovie", (req, res) => {
         +"from moviedb.movies "
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
-        +"where movies_in_collection.collectionid = '1';", function (err, result) {
+        +"where movies_in_collection.collectionid = '1'"
+        +"group by movies.id;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -399,7 +460,8 @@ app.get("/collection/mostpopular", (req, res) => {
         +"from moviedb.movies "
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
-        +"where movies_in_collection.collectionid = '2';", function (err, result) {
+        +"where movies_in_collection.collectionid = '2' "
+        +"group by movies_in_collection.rank ;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -423,7 +485,8 @@ app.get("/collection/tvshows", (req, res) => {
         +"from moviedb.movies "
         +"join moviedb.movies_in_collection "
         +"on movies_in_collection.movieid = movies.id "
-        +"where movies_in_collection.collectionid = '3';", function (err, result) {
+        +"where movies_in_collection.collectionid = '3';"
+        + "group by movies.year;", function (err, result) {
             if (err) {
                 return res.send({ err: err });
             }
@@ -438,6 +501,9 @@ app.get("/collection/tvshows", (req, res) => {
         console.error(err.message);
     }
 })
+
+
+
 
 app.listen(3001, () => {
     console.log("Server is listening on port 3001");
