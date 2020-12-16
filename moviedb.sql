@@ -135,6 +135,12 @@ select sales.customerid, sales.movieid, sales.saledate
 from moviedb.sales
 group by sales.customerid, sales.movieid, sales.saledate ;
 
+
+INSERT INTO moviedb.posters (movie_id,posterurl) values ('tt0376890', 'https://i.ebayimg.com/images/g/NRAAAOSwuvFcOPP7/s-l300.jpg');
+INSERT INTO moviedb.posters (movie_id,posterurl) values ('tt0377031', 'https://images-na.ssl-images-amazon.com/images/I/51nYema2RSL.jpg');
+
+INSERT INTO creditcards VALUES('490001', 'James', 'Brown', '2007/09/20');
+
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (1,'tt0421974',3);
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (2,'tt0378947',5);
 insert into moviedb.movies_in_collection (collectionid ,movieid,rank) values (3,'tt0378947',6);
